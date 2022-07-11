@@ -1,10 +1,11 @@
 class Solution {
 public:
     char nextGreatestLetter(vector<char>& letters, char target) {
+        if (letters.back() <= target) return letters.front();
+        
         int n = letters.size();
         int start = 0;
         int end= n-1;
-        char ans;
         
         while(start<=end){
             
@@ -18,6 +19,6 @@ public:
             }
         }
         
-        return letters[start%n];
+        return letters[start];
     }
 };
