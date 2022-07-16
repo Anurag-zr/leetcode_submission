@@ -7,14 +7,13 @@ public:
         }
         
         if(i<0 || j<0){
-            return INT_MAX;
+            return 1e9;
         }
         
         if(dp[i][j]!=-1) return dp[i][j];
         
-        int up =INT_MAX;int left = INT_MAX;
-        if(f(i-1,j,grid,dp)!=INT_MAX) up = grid[i][j]+f(i-1,j,grid,dp);
-        if(f(i,j-1,grid,dp)!=INT_MAX) left = grid[i][j] + f(i,j-1,grid,dp);
+         int  up = grid[i][j]+f(i-1,j,grid,dp);
+         int left = grid[i][j] + f(i,j-1,grid,dp);
         
         return dp[i][j] = min(up,left);
     }
