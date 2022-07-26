@@ -17,28 +17,23 @@ public:
         }
     }
     
-    int lenSCS = n+m - dp[n][m];  
-    string ans (lenSCS,'$');
-    int index = lenSCS-1;
+    string ans ="";
 
         int i=n;
         int j = m;
         while(i>0 && j>0){
             if(a[i-1]==b[j-1]){
-                ans[index] = a[i-1];
+                ans+= a[i-1];
                 i--;
                 j--;
-                index--;
             }
             else{
                 if(dp[i][j-1]>dp[i-1][j]){
-                    ans[index]=b[j-1];
-                    index--;
+                    ans+=b[j-1];
                     j--;
                 }
                 else{
-                    ans[index] = a[i-1];
-                    index--;
+                    ans+=a[i-1];
                     i--;
                 }
             }
@@ -46,20 +41,19 @@ public:
 
         if(i==0 && j>0){
             while(j>0){
-                ans[index] = b[j-1];
-                index--;
+                ans+=b[j-1];
                 j--;
             }
         }
 
         if(j==0 && i>0){
             while(i>0){
-                ans[index]= a[i-1];
-                index--;
+                ans+=a[i-1];
                 i--;
             }
         }    
     
+     reverse(ans.begin(),ans.end());   
     return ans;
     }
 };
