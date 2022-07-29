@@ -29,46 +29,65 @@ public:
 //         return dp[ind][buy] = profit;
 //     }
     
-    int maxProfit(vector<int>& prices) {
-        // int n = prices.size();
-        // vector<vector<int>> dp(n,vector<int> (2,-1));
-        // //1 signify: at 0th index you can start buying stock
-        // bool buy = true;
-        // return f(0,buy,prices,dp);
+//     int maxProfit(vector<int>& prices) {
+//         // int n = prices.size();
+//         // vector<vector<int>> dp(n,vector<int> (2,-1));
+//         // //1 signify: at 0th index you can start buying stock
+//         // bool buy = true;
+//         // return f(0,buy,prices,dp);
         
+//         int n = prices.size();
+
+//             vector<int> prev(2, 0);
+//             vector<int> cur(2, 0);
+
+//             for (int ind = n - 1; ind >= 0;ind--){
+//                 for (int buy = 0; buy <= 1;buy++){
+//                     int profit;
+//                     if(buy){
+//                         //buy
+//                         int  buy = -prices[ind] + prev[0];
+//                         //not buy
+//                         int notbuy = 0 + prev[1];
+
+//                         profit = max(buy,notbuy);
+//                     }
+//                     else{
+//                         //sell
+//                         int  sell = prices[ind] + prev[1];
+//                         //not sell
+//                         int notsell = 0+ prev[0];
+
+//                         profit = max(sell,notsell);
+//                     }
+
+//                      cur[buy] = profit;
+
+//                 }
+
+//                 prev = cur;
+//             }
+
+//             return prev[1];
+        
+//      }
+    
+    
+    int maxProfit(vector<int> &prices){
         int n = prices.size();
+        int aheadNotBuy = 0;
+        int aheadBuy = 0;
+        int curNotBuy, curBuy;
 
-            vector<int> prev(2, 0);
-            vector<int> cur(2, 0);
+        for (int ind = n - 1; ind >= 0;ind--){
+            curNotBuy = max(prices[ind] + aheadBuy, 0 + aheadNotBuy);
 
-            for (int ind = n - 1; ind >= 0;ind--){
-                for (int buy = 0; buy <= 1;buy++){
-                    int profit;
-                    if(buy){
-                        //buy
-                        int  buy = -prices[ind] + prev[0];
-                        //not buy
-                        int notbuy = 0 + prev[1];
+            curBuy = max(-prices[ind] + aheadNotBuy, 0 + aheadBuy);
 
-                        profit = max(buy,notbuy);
-                    }
-                    else{
-                        //sell
-                        int  sell = prices[ind] + prev[1];
-                        //not sell
-                        int notsell = 0+ prev[0];
+            aheadNotBuy = curNotBuy;
+            aheadBuy = curBuy;
+        }
 
-                        profit = max(sell,notsell);
-                    }
-
-                     cur[buy] = profit;
-
-                }
-
-                prev = cur;
-            }
-
-            return prev[1];
-        
-     }
+        return aheadBuy;
+    }
 };
