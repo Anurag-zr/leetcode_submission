@@ -3,6 +3,7 @@ public:
     
     int f(int ind,bool buy,vector<int> &prices,vector<vector<int>> &dp){
         if(ind == prices.size()){ return 0;}
+        
         if(dp[ind][buy]!=-1) return dp[ind][buy];
         
         
