@@ -12,29 +12,34 @@
 class Solution {
 public:
     
-    int findheight(TreeNode* node){
+    int check(TreeNode* node){
         if(node==nullptr) return 0;
         
-        int lh = findheight(node->left);
-        int rh = findheight(node->right);
+        int lh = check(node->left);
+        int rh = check(node->right);
+        
+        if(lh==-1 || rh==-1) return -1;
+        
+        if(abs(lh-rh)>1) return -1;
         
         return 1+ max(lh,rh);
     }
     
-    bool check(TreeNode* node){
-        if(node == nullptr) return true;
+//     bool check(TreeNode* node){
+//         if(node == nullptr) return true;
         
-        int lh = findheight(node->left);
-        int rh = findheight(node->right);
+//         int lh = findheight(node->left);
+//         int rh = findheight(node->right);
         
-        if(abs(lh-rh)>1) return false;
+//         if(abs(lh-rh)>1) return false;
         
-        if(check(node->left)==false || check(node->right)==false) return false;
+//         if(check(node->left)==false || check(node->right)==false) return false;
         
-        return true;
-    }
+//         return true;
+//     }
     
     bool isBalanced(TreeNode* root) {
-      return check(root);
+      if(check(root)==-1) return false;
+        return true;
     }
 };
