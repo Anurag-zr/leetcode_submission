@@ -11,23 +11,17 @@
  */
 class Solution {
 public:
-     void Path(TreeNode* node,int &ds_sum,vector<int> &ans){
+    
+ void Path(TreeNode* node,int ds_sum,vector<int> &ans){
      if(node==nullptr) return;
      
      if(node->left==nullptr && node->right == nullptr){ 
-        ds_sum= 10*ds_sum +(node->val);
-        ans.push_back(ds_sum);  
-        ds_sum-=node->val;
-        ds_sum/=10;
-    
+        ans.push_back(ds_sum*10+node->val);  
          return;
      }
      
-     ds_sum= 10*ds_sum +(node->val);
-     Path(node->left,ds_sum,ans);
-     Path(node->right,ds_sum,ans);
-     ds_sum-=node->val;
-     ds_sum/=10;
+     Path(node->left, ds_sum*10 + (node->val),ans);
+     Path(node->right, ds_sum*10 + (node->val),ans);
  }
     
     int sumNumbers(TreeNode* root) {
