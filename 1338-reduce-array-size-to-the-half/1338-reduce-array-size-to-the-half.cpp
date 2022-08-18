@@ -1,32 +1,29 @@
 class Solution {
 public:
     int minSetSize(vector<int>& arr) {
-        int arrSize = arr.size();
+        int n = arr.size();
         unordered_map<int,int> freq;
         for(auto ele:arr){
             freq[ele]++;
         }
+    
+        vector<int> counting(n+1);
+        for(auto &[_,cnt]:freq) counting[cnt]++; //{0,1,1,0,1,0,0......}
         
-        sort(arr.begin(),arr.end(), [&freq](int a , int b){
-            if(freq[a]!=freq[b])
-                return freq[a]>freq[b];
-            return a<b;
-        });
         
-        int setSize=arrSize;
+        int freqcy =n;
         int ans=0;
-        for(int i=0;i<arrSize;){
-            int ele= arr[i];
-            int count = freq[ele];
-            setSize-=count;
-            // cout<<setSize<<" "<<arrSize/2<<endl;
-            ans++;
-            if(setSize<=arrSize/2){
-                break;
+        int setSize =n;
+        while(setSize>n/2){
+            
+            if(counting[freqcy]==0) freqcy--;
+            else{
+                setSize-=freqcy;
+                ans++;
+                counting[freqcy]--;
             }
-            i=i+count;
         }
         
-        return ans;
+       return ans;
     }
 };
