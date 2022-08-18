@@ -14,13 +14,13 @@ public:
         int freqcy =n;
         int ans=0;
         int setSize =n;
-        while(setSize>n/2){
+        while(setSize>n/2 && freqcy>=0){
             
             if(counting[freqcy]==0) freqcy--;
             else{
                 setSize-=freqcy;
                 ans++;
-                counting[freqcy]--;
+                counting[freqcy]--;/// from 1 -> 0
             }
         }
         
