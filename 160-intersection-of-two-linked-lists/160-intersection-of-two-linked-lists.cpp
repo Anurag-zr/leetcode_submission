@@ -9,22 +9,15 @@
 class Solution {
 public:
     ListNode *getIntersectionNode(ListNode *headA, ListNode *headB) {
-     
-        unordered_map<ListNode*,bool> umap;
-        ListNode* temp=headA;
-        while(temp!=NULL){
-            umap[temp]=true;
-            temp=temp->next;
+        ListNode *dummyA, *dummyB;
+        dummyA = headA;
+        dummyB = headB;
+
+        while(dummyA!=dummyB){
+            dummyA = dummyA == NULL ? headB : dummyA->next;
+            dummyB = dummyB == NULL ? headA : dummyB->next;
         }
-        
-        
-        temp= headB;
-        
-        while(temp!=NULL){
-            if(umap.find(temp)!=umap.end()) return temp;
-            temp=temp->next;
-        }
-        
-        return NULL;
+
+        return dummyA;
     }
 };
