@@ -14,20 +14,27 @@ public:
         string s="";
         string revs="";
             
-        ListNode *dummy =NULL;
+        ListNode *newHead =NULL;
         ListNode *temp;
         
-        while(head!=NULL){
+        while(head!=NULL){   //linked list structure got reversed while executing this code
             temp=head->next;
             s+=(head->val+'0');
-            head->next=dummy;
-            dummy=head;
+            head->next=newHead;
+            newHead=head;
             head=temp;
         }
         
-        while(dummy!=NULL){
-            revs+=(dummy->val + '0');
-            dummy = dummy->next;
+        
+        //linked list structure again got reversed after following code execution
+        //retreving the original linked list structure again.
+        head = NULL;  
+        while(newHead!=NULL){  
+            temp=newHead->next;
+            revs+=(newHead->val + '0');
+            newHead->next=head;
+            head=newHead;
+            newHead=temp;
         }
         
         if(s==revs) return true;
