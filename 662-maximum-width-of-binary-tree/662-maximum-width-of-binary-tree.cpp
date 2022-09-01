@@ -12,27 +12,36 @@
 class Solution {
 public:
     int widthOfBinaryTree(TreeNode* root) {
-        if(root == nullptr) return 0;
-        queue<pair<TreeNode*,int>> q;
-        int width=0;
-        q.push({root,0});
-        while(!q.empty()){
-          int size = q.size();
-          int first,last;
-          int min_ind = q.front().second;
-          for(int i=0;i<size;i++){
-              int cur_ind = q.front().second - min_ind;
-              TreeNode* node = q.front().first;
-              q.pop();
-              if(i==0) first = cur_ind;
-              if(i==size-1) last = cur_ind;
-              if(node->left!=nullptr) q.push({node->left,(long long) cur_ind*2+1});
-              if(node->right!=nullptr) q.push({node->right,(long long) 2*cur_ind+2});
-          }
-            
-            width = max(width,last-first+1);
+      if(root==NULL)
+        return 0;
+
+    int width = 0;
+    queue<pair<TreeNode *,unsigned int>> q;
+    q.push({root, 0});
+
+    while(!q.empty()) {
+        int size = q.size();
+        // int ind = q.front().second;
+        unsigned int first, last;
+
+        for (int i = 0; i < size;i++){
+            unsigned int cur_id = q.front().second;
+            TreeNode *node = q.front().first;
+            q.pop();
+            if(i==0)
+                first = cur_id;
+            if(i==size-1)
+                last = cur_id;
+
+            if(node->left)
+                q.push({node->left, 2 * cur_id});
+            if(node->right)
+                q.push({node->right, 2 * cur_id + 1});
         }
-        
-        return width;
+
+        width = max<unsigned int>(width, last - first + 1);
+    }
+
+    return width;
     }
 };
