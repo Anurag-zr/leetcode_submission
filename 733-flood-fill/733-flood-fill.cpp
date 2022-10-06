@@ -1,31 +1,33 @@
 class Solution {
 public:
     
-    void dfs(int r,int c,int &color,int &intColor,vector<vector<int>> &image,vector<vector<bool>> &vis){
-        if(r<0 || r>=image.size() || c<0 || c>=image[0].size())  return;
-        
-        if(!vis[r][c] && image[r][c]==intColor){
-            image[r][c]=color;
-            vis[r][c]=true;
-        
-        
-        dfs(r-1,c,color,intColor,image,vis); //up
-        dfs(r,c+1,color,intColor,image,vis); //right
-        dfs(r+1,c,color,intColor,image,vis); //down
-        dfs(r,c-1,color,intColor,image,vis); //left
+    void dfs(vector<vector<int>> &grid,int i,int j,vector<vector<int>> &vis,int &initColor,vector<int> &dx,vector<int> &dy,int &color){
+        if(i>=0 && i<grid.size() && j>=0 && j<grid[0].size() && !vis[i][j] && grid[i][j]==initColor){
+            vis[i][j]=1;
+            grid[i][j] = color;
             
+            for(int k=0;k<4;k++){
+                int nx = i +dx[k];
+                int ny = j+dy[k];
+                
+                dfs(grid,nx,ny,vis,initColor,dx,dy,color);
+            }
         }
     }
     
     vector<vector<int>> floodFill(vector<vector<int>>& image, int sr, int sc, int color) {
-        int n= image.size();
-        int m= image[0].size();
+        int n = image.size();
+        int m = image[0].size();
         
-        int intColor = image[sr][sc];
+        vector<vector<int>> vis(n,vector<int> (m,0));
         
-        vector<vector<bool>> vis(n,vector<bool> (m,false));
+        int initColor = image[sr][sc];
         
-        dfs(sr,sc,color,intColor,image,vis);
+        vector<int> dx= {-1,0,+1,0};
+        vector<int> dy ={ 0,+1,0,-1};
+        
+        dfs(image,sr,sc,vis,initColor,dx,dy,color);
+        
         
         return image;
     }
