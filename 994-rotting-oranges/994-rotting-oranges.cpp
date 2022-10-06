@@ -1,74 +1,67 @@
 class Solution {
 public:
     
-    int bfs(vector<vector<int>> &grid,vector<vector<int>> &vis,vector<int> &delRow,vector<int> &delCol,queue<pair<int,int>> &q){
+    int bfs(queue<pair<int,int>> &q,vector<int> &dx,vector<int> &dy,int &freshOrgCnt,vector<vector<int>> &grid){
         
-        int cnt=0;
-
+        int time = 0;
+        
         while(!q.empty()){
-
             int size = q.size();
+            bool flag = false;
+
             
-            bool flag =false;
-            
-            for(int j=0;j<size;j++){
-                int row = q.front().first;
-                int col = q.front().second;
+            for(int i=0;i<size;i++){
+                int r = q.front().first;
+                int c = q.front().second;
+                
                 q.pop();
-              for(int i=0;i<delRow.size();i++){
-                int nrow = row+delRow[i];
-                int ncol = col +delCol[i];
                 
-                if(nrow>=0 && nrow<grid.size() && ncol>=0 && ncol<grid[0].size()
-                   && !vis[nrow][ncol] && grid[nrow][ncol]==1){
-                    vis[nrow][ncol]=1;
-                    q.push({nrow,ncol});
-                    flag=true;
+                for(int j = 0;j<4;j++){
+                    int nr = r+dx[j];
+                    int nc = c+dy[j];
+                    
+                    if(nr>=0 && nr<grid.size() && nc>=0 && nc<grid[0].size() && grid[nr][nc]==1){
+                        grid[nr][nc] = 2;
+                        freshOrgCnt--;
+                        q.push({nr,nc});
+                        flag =true;
+                    }
+                    
                 }
-            }
                 
-        }
+            }
             
-            if(flag) cnt++;
             
+            if(flag) time++;
         }
         
-        return cnt;
+        return time;
     }
     
     int orangesRotting(vector<vector<int>>& grid) {
-        
         int n = grid.size();
-        int m= grid[0].size();
+        int m = grid[0].size();
         
-        vector<vector<int>> vis(n,vector<int>(m,0));
-        
-       vector<int> delRow = {-1,0,+1,0};
-       vector<int> delCol = {0,+1,0,-1};
-        
-        int maxi=0;
         queue<pair<int,int>> q;
         
+        int freshOrgCnt =0;
         for(int i=0;i<n;i++){
             for(int j=0;j<m;j++){
-                
-                if(grid[i][j]==2 && !vis[i][j]){
-                   vis[i][j]=1;
-                    q.push({i,j});
-                }
-                
+                if(grid[i][j]==1) freshOrgCnt++;
+                if(grid[i][j]==2) q.push({i,j});
             }
         }
         
-        maxi = bfs(grid,vis,delRow,delCol,q);
+        int ans =0;
+        vector<int> dx ={-1,0,+1,0};
+        vector<int> dy ={0,+1,0,-1};
         
-        for(int i=0;i<n;i++){
-            for(int j=0;j<m;j++){
-                if(grid[i][j]==1 && !vis[i][j]) return -1;
-            }
-        }
+         ans =bfs(q,dx,dy,freshOrgCnt,grid);
         
         
-        return maxi;
+        if(freshOrgCnt!=0) return -1;
+        
+        return ans;
+        
     }
 };
