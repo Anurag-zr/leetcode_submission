@@ -5,16 +5,14 @@ public:
         if(r<0 || r>=board.size() || c<0 || c>=board[0].size() || vis[r][c] || board[r][c]=='X') return;
         
         vis[r][c]=1;
-        vector<int> dr = {-1,0,+1,0};
-        vector<int> dc = {0,+1,0,-1};
+   
+            
+        dfs(r-1,c,vis,board);
+        dfs(r,c+1,vis,board);
+        dfs(r+1,c,vis,board);
+        dfs(r,c-1,vis,board);
+            
         
-        for(int i=0;i<4;i++){
-            int nr = r + dr[i];
-            int nc = c+ dc[i];
-            
-            dfs(nr,nc,vis,board);
-            
-        }
         
     }
     
