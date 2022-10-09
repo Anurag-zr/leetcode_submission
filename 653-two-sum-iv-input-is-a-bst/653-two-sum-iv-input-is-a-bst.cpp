@@ -12,26 +12,21 @@
 class Solution {
 public:
     
-    bool find(TreeNode* root,int k,unordered_map<int,TreeNode*> &umap){
-        if(root==nullptr) return false;
+    bool targetExist(TreeNode* root,int k, unordered_map<int,int> &umap){
+        if(root==NULL) return false;
         if(umap.find(k-root->val)!=umap.end()) return true;
-        else{
-            umap[root->val]=root;
-        }
         
-        bool left = find(root->left,k,umap);
-        if(left) return true;
-        bool right = find(root->right,k,umap);
-        if(right) return true;
+        umap[root->val]=1;
+        
+        if(targetExist(root->left,k,umap)) return true;
+        if(targetExist(root->right,k,umap)) return true;
         
         return false;
     }
     
     bool findTarget(TreeNode* root, int k) {
-        if(root==NULL) return false;
+        unordered_map<int,int> umap;
         
-        unordered_map<int,TreeNode*> umap;
-        
-        return find(root,k,umap);
+        return targetExist(root,k,umap);
     }
 };
