@@ -10,38 +10,37 @@ using namespace std;
 class Solution {
   public:
   
-//   void dfs(int r,int c,vector<vector<int>> &vis,vector<vector<int>> &grid,vector<pair<int,int>> &ds,int r0,int c0){
-//       if(r<0 || r>=grid.size() || c<0 || c>=grid[0].size() || vis[r][c] || grid[r][c]==0 ) return;
+  void dfs(int r,int c,vector<vector<int>> &vis,vector<vector<int>> &grid,vector<pair<int,int>> &ds,int r0,int c0){
+      if(r<0 || r>=grid.size() || c<0 || c>=grid[0].size() || vis[r][c] || grid[r][c]==0 ) return;
       
-//       vis[r][c]=1;
-//       ds.push_back({r-r0,c-c0});
+      vis[r][c]=1;
+      ds.push_back({r-r0,c-c0});
       
-//       dfs(r-1,c,vis,grid,ds,r0,c0);
-//       dfs(r,c+1,vis,grid,ds,r0,c0);
-//       dfs(r+1,c,vis,grid,ds,r0,c0);
-//       dfs(r,c-1,vis,grid,ds,r0,c0);
-//   }
+      dfs(r-1,c,vis,grid,ds,r0,c0);
+      dfs(r,c+1,vis,grid,ds,r0,c0);
+      dfs(r+1,c,vis,grid,ds,r0,c0);
+      dfs(r,c-1,vis,grid,ds,r0,c0);
+  }
 
  
- void dfs(int r,int c,vector<vector<int>> &vis,vector<vector<int>> &grid,vector<pair<int,int>> &ds,int r0,int c0){
+//  void dfs(int r,int c,vector<vector<int>> &vis,vector<vector<int>> &grid,vector<pair<int,int>> &ds,int r0,int c0){
      
-     vis[r][c]=1;
-     ds.push_back({r-r0,c-c0});
+//      vis[r][c]=1;
+//      ds.push_back({r-r0,c-c0});
      
-     vector<int> dr = {-1,0,+1,0};
-     vector<int> dc = {0,+1,0,-1};
+//      vector<int> dr = {-1,0,+1,0};
+//      vector<int> dc = {0,+1,0,-1};
      
-     for(int i=0;i<4;i++){
-         int nr = r+ dr[i];
-         int nc = c + dc[i];
+//      for(int i=0;i<4;i++){
+//          int nr = r+ dr[i];
+//          int nc = c + dc[i];
          
-         if(nr>=0 && nr<grid.size() && nc>=0 && nc<grid[0].size() && !vis[nr][nc] && grid[nr][nc]==1){
-             dfs(nr,nc,vis,grid,ds,r0,c0);
-         }
-     }
+//          if(nr>=0 && nr<grid.size() && nc>=0 && nc<grid[0].size() && !vis[nr][nc] && grid[nr][nc]==1){
+//              dfs(nr,nc,vis,grid,ds,r0,c0);
+//          }
+//      }
      
-     
- }
+//  }
   
     int countDistinctIslands(vector<vector<int>>& grid) {
         // code here
