@@ -1,12 +1,12 @@
 class Solution {
 public:
     string reverseVowels(string s) {
-        cout<<s<<endl;
+        // cout<<s<<endl;
         int  i,j;
         i=0;
         j= s.length()-1;
         
-        cout<<j<<endl;
+        // cout<<j<<endl;
         
         unordered_map<char,int> umap;
         umap['a']++;
