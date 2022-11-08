@@ -1,30 +1,49 @@
 class Solution {
 public:
     void setZeroes(vector<vector<int>>& matrix) {
-        int m = matrix.size();
-        int n= matrix[0].size();
+        bool row0State = false;
+        bool col0State = false;
         
-        vector<pair<int,int>> zeros;
+        int n = matrix.size();
+        int m = matrix[0].size();
         
         for(int i=0;i<m;i++){
-            for(int j=0;j<n;j++){
-                if(matrix[i][j]==0) zeros.push_back({i,j});
+            if(matrix[0][i]==0){row0State =true; break;}
+        }
+        
+        for(int i=0;i<n;i++){
+            if(matrix[i][0]==0){col0State =true; break;}
+        }
+        
+        for(int i=1;i<n;i++){
+            for(int j=1;j<m;j++){
+                if(matrix[i][j]==0){
+                    matrix[i][0] = 0;
+                    matrix[0][j] = 0;
+                }
             }
         }
         
-        for(auto it:zeros){
-            int i=it.first;
-            int j = it.second;
-            
-            //set row zero
-            for(int k=0;k<n;k++){
-                matrix[i][k]=0;
+        for(int i=1;i<n;i++){
+            for(int j=1;j<m;j++){
+                if(matrix[i][0]==0 || matrix[0][j]==0)
+                    matrix[i][j]=0;
             }
-            
-            //set col zero
-            for(int k=0;k<m;k++) matrix[k][j]=0;
         }
         
-
+        // cout<<row0State<<endl;
+        if(row0State){
+            for(int i=0;i<m;i++){
+                matrix[0][i]=0;
+            }
+        }
+        
+        if(col0State){
+            for(int i=0;i<n;i++){
+                matrix[i][0]=0;
+            }
+        }
+        
+        
     }
 };
