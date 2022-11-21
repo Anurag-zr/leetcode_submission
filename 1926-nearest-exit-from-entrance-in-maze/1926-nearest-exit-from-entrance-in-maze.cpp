@@ -9,6 +9,7 @@ public:
         
         queue<pair<pair<int,int>,int>> q;
         q.push({{entrance[0],entrance[1]},0});
+        maze[entrance[0]][entrance[1]]='+';
         
         while(!q.empty()){
             auto cell = q.front();
