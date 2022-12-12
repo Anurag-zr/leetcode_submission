@@ -22,15 +22,15 @@ class Solution
             pair<int,int> nodePr = min_heap.top();
             min_heap.pop();
             
-            int wt = nodePr.first;
+            int nodeWt = nodePr.first;
             int node = nodePr.second;
             
             for(auto it : adj[node]){
                 int adjNode = it[0];
                 int adjNodeWt = it[1];
                 //relaxing the edges of node
-                if(wt+adjNodeWt<dis[adjNode]){
-                    dis[adjNode]=wt+ adjNodeWt;
+                if(nodeWt+adjNodeWt<dis[adjNode]){
+                    dis[adjNode]=nodeWt+ adjNodeWt;
                     min_heap.push({dis[adjNode],adjNode});
                 }
             }
