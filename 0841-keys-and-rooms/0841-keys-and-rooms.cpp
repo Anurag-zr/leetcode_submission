@@ -10,6 +10,24 @@ public:
         }
     }
     
+    void bfs(int start,vector<vector<int>> &rooms,vector<int> &vis){
+        // vis[start]=1;
+        queue<int> q;
+        q.push(start);
+        
+        while(!q.empty()){
+            int node = q.front();
+            q.pop();
+            
+            for(auto adjRoom: rooms[node]){
+                if(!vis[adjRoom]){
+                    vis[adjRoom]=1;
+                    q.push(adjRoom);
+                }
+            }
+        }
+    }
+    
     bool canVisitAllRooms(vector<vector<int>>& rooms) {
         int n = rooms.size();
         
@@ -17,7 +35,8 @@ public:
         int start=0;
         vis[start]=1;
             
-        dfs(start,rooms,vis);
+        // dfs(start,rooms,vis);
+        bfs(start,rooms,vis);
         
         for(int i=0;i<n;i++){
             if(!vis[i]) return false;
