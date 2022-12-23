@@ -1,6 +1,10 @@
 class Solution {
 public:
+    
+    
     int firstMissingPositive(vector<int>& nums) {
+        
+        //bruteforce
         sort(nums.begin(),nums.end());
         int ans =1;
         
