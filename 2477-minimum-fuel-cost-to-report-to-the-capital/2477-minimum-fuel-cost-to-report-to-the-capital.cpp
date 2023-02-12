@@ -2,8 +2,8 @@ class Solution {
 public:
     
     vector<long long> dfs(int node,int parent,vector<int> adjList[],int &seats){
-        long long fuelCost,ambassador,availSeats;
-        fuelCost = availSeats =0;
+        long long fuelCost,ambassador;
+        fuelCost =0;
         ambassador =1;
         int cars=0;
         
@@ -13,14 +13,12 @@ public:
             vector<long long> temp = dfs(adjNode,node,adjList,seats);
             fuelCost+=temp[0];
             ambassador+= temp[1];
-            availSeats+= temp[2];
         }
 
         cars = ceil((double)ambassador/seats);
-        availSeats = seats - (ambassador%seats);
         fuelCost += cars*1;
         
-        return {fuelCost,ambassador,availSeats};
+        return {fuelCost,ambassador};
     }
     
     long long minimumFuelCost(vector<vector<int>>& roads, int seats) {
