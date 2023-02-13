@@ -39,7 +39,7 @@ public:
             }
             
             
-            if(!pairFound){
+            if(!pairFound){ //for odd length string when corresponding equal char not found
                    int midInd = i+(j-i)/2;
                     char temp = arr[k];
                     minDel+=k-midInd;
