@@ -1,55 +1,27 @@
 class Solution {
 public:
     
-    string maxLenHelper(int ind,vector<string> &arr,unordered_map<char,bool> &umap){
-        if(ind==arr.size()) return "";
+    int dfs(int ind,vector<string> &arr,string str){
+        if(!isUnique(str)) return 0;
         
-        string s = arr[ind];
-        bool allUnique = true;
+        int maxi =str.length();
         
-        vector<bool> check(26,false);
-        
-        for(int i=0;i<s.length();i++){
-            if(umap.find(s[i])!=umap.end()){
-                allUnique = false;
-                break;
-            }
-            else if(check[s[i]-'a']==true){
-                allUnique = false;
-                break;
-            }
-            else{
-                check[s[i]-'a']=true;   
-            }
+        for(int i=ind;i<arr.size();i++){
+            maxi = max(maxi,dfs(i+1,arr,str+arr[i]));
         }
         
-     
+        return maxi;
+    }
+    
+    bool isUnique(string s){
+        unordered_set<char> st(s.begin(),s.end());
         
-        string pick="";
-        string notpick="";
-        
-        if(allUnique){ //pick s
-            
-            for(auto c:s){
-                umap[c]=true;
-            }
-            
-             pick = s+maxLenHelper(ind+1,arr,umap);
-            
-            for(auto c:s) umap.erase(c);
-        
-        }
-        
-        //not pick
-        
-        notpick=  maxLenHelper(ind+1,arr,umap);
-        
-        return  (pick.length()>notpick.length()?pick:notpick);
+        if(st.size()==s.length()) return true;
+        return false;
     }
     
     int maxLength(vector<string>& arr) {
-        unordered_map<char,bool> umap;
-        string ans = maxLenHelper(0,arr,umap);
-        return ans.length();
+        int maxi = dfs(0,arr,"");
+        return maxi;
     }
 };
