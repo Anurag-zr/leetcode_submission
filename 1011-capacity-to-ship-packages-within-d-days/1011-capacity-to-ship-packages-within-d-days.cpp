@@ -2,11 +2,19 @@ class Solution {
 public:
     int shipWithinDays(vector<int>& weights, int days) {
         int sum =0;
-        for(auto ele: weights) sum+=ele;
+        int left=0;
+        for(auto ele: weights){
+            left = max(left,ele);
+            sum+=ele;
+        }
         
-        int minCap = ceil(sum/days);
+        int right = sum;
         
-        for(int cap = minCap;cap<=sum;cap++){
+        
+        while(left<right){
+            
+            int mid = left + (right - left)/2;
+            int cap = mid;
             int curW=0;
             int rDays=1;
             
@@ -27,11 +35,12 @@ public:
             
             // cout<<cap<<" "<<rDays<<endl;
             
-            if(rDays<=days) return cap;
+            if(rDays>days) left=mid+1;
+            else right = mid;
         }
         
         
         
-        return 0;
+        return left;
     }
 };
